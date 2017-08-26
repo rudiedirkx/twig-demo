@@ -1,0 +1,13 @@
+{% extends 'tpl.br.layout.twig' %}
+
+{% block content %}
+	{% title %}Custom title with custom tag{% endtitle %}
+
+	<h1>{{ title }}</h1>
+
+	<p>Bla bla bla</p>
+
+	{% include 'tpl.br.frame.twig' %}
+
+	<p><button>Save</button></p>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'tpl.br.layout.twig' %}
+
+{% block title %}
+	Custom title with "{{ variables }}"?
+{% endblock %}
+
+{% block content %}
+	<h1>{{ block('title') }}</h1>
+
+	<p>Bla bla bla</p>
+
+	{% include 'tpl.br.frame.twig' %}
+
+	<p><button>Save</button></p>
+{% endblock %}

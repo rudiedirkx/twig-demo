@@ -50,5 +50,29 @@ $runPhpStyle = function() use ($twigMaker, $compile, $render) {
 	$render($template);
 };
 
+$fromString = function() use ($twigMaker, $compile, $render) {
+	$loader = new MyTwigStringLoader();
+	$twig = new Environment($loader, array(
+		'debug' => false,
+		'cache' => false,
+		'auto_reload' => true,
+	));
+	$template = $compile($twig,
+<<<'TWIG'
+Hello, {{ name }}.
+
+Mostly, I eat
+
+{% for candy in candies %}
+* {{ candy }}
+{% endfor %}
+
+Sincerely, Twig style, from uncacheable string source.
+TWIG
+	);
+	$render($template);
+};
+
 $runPhpStyle();
 $runNormalTwig();
+$fromString();
