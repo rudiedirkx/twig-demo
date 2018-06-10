@@ -1,0 +1,9 @@
+<p>Ternary:<br>Bla (last run: {{ last_run ? last_run : 'never' }})</p>
+
+<p>If/else:<br>Bla (last run:
+	{% if last_run -%}
+		{{ last_run }}
+	{%- else -%}
+		never
+	{%- endif -%}
+)</p>
