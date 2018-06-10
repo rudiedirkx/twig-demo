@@ -31,7 +31,7 @@ class MyTwigStringLoader implements LoaderInterface {
 }
 
 $twigMaker = function(callable $processor = null) {
-	$loader = new FilesystemLoader(__DIR__);
+	$loader = new FilesystemLoader(__DIR__ . '/tpl');
 	$twig = new Environment($loader, array(
 		'debug' => false,
 		'cache' => __DIR__ . '/cache',

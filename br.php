@@ -87,7 +87,7 @@ function t($key) {
 	return ucfirst(strtolower(str_replace('_', ' ', $key)));
 }
 
-$vars = json_decode(file_get_contents('br.json'), true);
+$vars = json_decode(file_get_contents('data/br.json'), true);
 $version = $_GET['version'] ?? '1';
 
 $twig = $twigMaker(function(Environment $twig) {
@@ -96,7 +96,7 @@ $twig = $twigMaker(function(Environment $twig) {
 	$twig->addTokenParser(new TitleTokenParser());
 	$twig->addTokenParser(new EndTitleTokenParser());
 });
-$template = $twig->load("tpl.br.page{$version}.twig");
+$template = $twig->load("br.page{$version}.twig");
 $output = $template->render($vars);
 
 header('Content-type: text/html; charset=utf-8');

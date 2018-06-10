@@ -8,7 +8,7 @@ list($twigMaker) = require 'inc.bootstrap.php';
 
 header('Content-type: text/plain; charset=utf-8');
 
-$vars = json_decode(file_get_contents('index.json'), true);
+$vars = json_decode(file_get_contents('data/source.json'), true);
 
 $compile = function(Environment $twig, string $template) {
 	$_time = microtime(1);
@@ -31,7 +31,7 @@ $render = function(TemplateWrapper $template) use ($vars) {
 // Normal Twig
 $runNormalTwig = function() use ($twigMaker, $compile, $render) {
 	$twig = $twigMaker();
-	$template = $compile($twig, 'tpl.index.twig');
+	$template = $compile($twig, 'index.twig');
 	$render($template);
 };
 
@@ -46,7 +46,7 @@ $runPhpStyle = function() use ($twigMaker, $compile, $render) {
 		));
 		$twig->setLexer($lexer);
 	});
-	$template = $compile($twig, 'tpl.index.php');
+	$template = $compile($twig, 'index.php');
 	$render($template);
 };
 
