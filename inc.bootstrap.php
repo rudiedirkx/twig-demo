@@ -41,4 +41,11 @@ $twigMaker = function(callable $processor = null) {
 	return $twig;
 };
 
-return [$twigMaker];
+$debugTemplate = function(Twig_Environment $twig, Twig_TemplateWrapper $template) {
+	$name = $template->getSourceContext()->getName();
+	$class = $twig->getTemplateClass($name);
+	$filename = $twig->getCache(false)->generateKey($name, $class);
+	return compact('name', 'class', 'filename');
+};
+
+return [$twigMaker, $debugTemplate];

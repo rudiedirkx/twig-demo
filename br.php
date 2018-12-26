@@ -92,7 +92,7 @@ $version = $_GET['version'] ?? '1';
 
 $twig = $twigMaker(function(Environment $twig) {
 	$twig->addGlobal('title', '');
-	$twig->setCache(false);
+	// $twig->setCache(false);
 	$twig->addTokenParser(new TitleTokenParser());
 	$twig->addTokenParser(new EndTitleTokenParser());
 });
@@ -101,3 +101,7 @@ $output = $template->render($vars);
 
 header('Content-type: text/html; charset=utf-8');
 echo $output;
+
+echo '<pre>';
+print_r($debugTemplate($twig, $template));
+echo '</pre>';

@@ -7,7 +7,7 @@
 	<tbody>
 		{% for user in users %}
 			<tr>
-				<td>{{ user.name }}</td>
+				<td>{# {{ user@index }}. #} {{ user.name }}</td>
 			</tr>
 		{% endfor %}
 	</tbody>
