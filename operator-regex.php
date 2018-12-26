@@ -33,7 +33,7 @@ class Twig_Node_Expression_Binary_Regex extends Twig_Node_Expression_Binary {
 $twig = $twigMaker(function(Twig_Environment $twig) {
 	$twig->addExtension(new Project_Twig_Extension());
 });
-$template = $twig->load("operator.twig");
+$template = $twig->load("operator-regex.twig");
 $output = $template->render([
 	'subject' => rand(0, 1) ? date('Y-m-d') : date('H:i:s'),
 	'regex' => '/^\d+-\d+-\d+$/i',
