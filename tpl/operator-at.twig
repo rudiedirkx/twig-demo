@@ -1,0 +1,15 @@
+<ul>
+	{% for item in items %}
+		<li>{{ item@index }}. {{ item }}</li>
+	{% endfor %}
+</ul>
+
+<table cellpadding="10" cellspacing="0" border="1">
+	{% for item1 in items %}
+		<tr>
+			{% for item2 in items %}
+				<td>{{ item1 }}-{{ item2 }}</td>
+			{% endfor %}
+		</tr>
+	{% endfor %}
+</table>
