@@ -1,0 +1,13 @@
+{% extends 'title-layout.twig' %}
+
+{% if composite %}
+	{% title = ':: ' ~ t('USERS') ~ ' (123) ::' %}
+{% else %}
+	{% title = pageTitle %}
+{% endif %}
+
+{% block content %}
+	<p>woop</p>
+
+	<p>composite? {{ composite ? 'Yes' : 'No' }}</p>
+{% endblock %}
