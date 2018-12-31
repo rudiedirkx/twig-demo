@@ -91,7 +91,7 @@ $twig = $twigMaker(function(Environment $twig) {
 	}));
 	$twig->addTokenParser(new TitleTokenParser());
 });
-$template = $twig->load("title-page.twig");
+$template = $twig->load("title-page");
 $output = $template->render($vars);
 
 header('Content-type: text/html; charset=utf-8');

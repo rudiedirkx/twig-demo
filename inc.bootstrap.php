@@ -30,8 +30,22 @@ class MyTwigStringLoader implements LoaderInterface {
 	}
 }
 
+class MyFilesystemLoader extends FilesystemLoader {
+	protected function findTemplate($name, $throw = true) {
+		$this->fixName($name);
+
+		return parent::findTemplate($name, $throw);
+	}
+
+	protected function fixName(&$name) {
+		if (!preg_match('#\.twig$#', $name)) {
+			$name .= '.twig';
+		}
+	}
+}
+
 $twigMaker = function(callable $processor = null) {
-	$loader = new FilesystemLoader(__DIR__ . '/tpl');
+	$loader = new MyFilesystemLoader([__DIR__ . '/tpl']);
 	$twig = new Environment($loader, array(
 		'debug' => false,
 		'cache' => __DIR__ . '/cache',
