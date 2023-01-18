@@ -1,0 +1,8 @@
+{% set var1 = 1 %}
+{% set varTrue = true %}
+
+<p>1 and true</p>
+<p>{{ var1 == varTrue ? 'are equal' : 'are not equal' }}</p>
+<p>{{ var1 === true ? 'are identical' : 'are not identical' }}</p>
+<p>{{ varTrue === 1 ? 'are identical' : 'are not identical' }}</p>
+<p>{{ var1 === varTrue ? 'are identical' : 'are not identical' }}</p>
