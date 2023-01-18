@@ -17,7 +17,12 @@ class Project_Twig_Extension extends AbstractExtension {
 			array(
 				'===' => array(
 					'precedence' => 100,
-					'class' => 'Twig_Node_Expression_Binary_Regex',
+					'class' => 'Twig_Node_Expression_Binary_Identical',
+					'associativity' => ExpressionParser::OPERATOR_LEFT,
+				),
+				'!==' => array(
+					'precedence' => 100,
+					'class' => 'Twig_Node_Expression_Binary_NotIdentical',
 					'associativity' => ExpressionParser::OPERATOR_LEFT,
 				),
 			),
@@ -25,20 +30,15 @@ class Project_Twig_Extension extends AbstractExtension {
 	}
 }
 
-class Twig_Node_Expression_Binary_Regex extends AbstractBinary {
-	public function compile(Compiler $compiler) : void {
-// dd($this, $compiler);
-		$compiler
-			// ->raw('(preg_match(')
-			->subcompile($this->getNode('left'))
-			->raw(' === ')
-			->subcompile($this->getNode('right'))
-			// ->raw(') > 0)')
-		;
-	}
-
+class Twig_Node_Expression_Binary_Identical extends AbstractBinary {
 	public function operator(Compiler $compiler) : Compiler {
-		return $compiler;
+		return $compiler->raw(' === ');
+	}
+}
+
+class Twig_Node_Expression_Binary_NotIdentical extends AbstractBinary {
+	public function operator(Compiler $compiler) : Compiler {
+		return $compiler->raw(' !== ');
 	}
 }
 
