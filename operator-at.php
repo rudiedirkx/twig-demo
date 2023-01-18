@@ -1,28 +1,37 @@
 <?php
 
+use Twig\Compiler;
+use Twig\Environment;
+use Twig\ExpressionParser;
+use Twig\Extension\AbstractExtension;
+use Twig\Node\Expression\Binary\AbstractBinary;
+use Twig\Node\Expression\NameExpression;
+
 list($twigMaker, $debugTemplate) = require 'inc.bootstrap.php';
 
 header('Content-type: text/plain; charset=utf-8');
 
-class Project_Twig_Extension extends Twig_Extension {
-	public function getOperators() {
+class Project_Twig_Extension extends AbstractExtension {
+	public function getOperators() : array {
 		return array(
 			array(),
 			array(
-				'@' => array('precedence' => 30, 'class' => 'Twig_Node_Expression_Binary_At', 'associativity' => Twig_ExpressionParser::OPERATOR_LEFT),
+				'@' => array(
+					'precedence' => 30,
+					'class' => 'Twig_Node_Expression_Binary_At',
+					'associativity' => ExpressionParser::OPERATOR_LEFT,
+				),
 			),
 		);
 	}
 }
 
-class Twig_Node_Expression_Binary_At extends Twig_Node_Expression_Binary {
-	public function compile(Twig_Compiler $compiler) {
-		// return $compiler->raw("''");
-
+class Twig_Node_Expression_Binary_At extends AbstractBinary {
+	public function compile(Compiler $compiler) : void {
 		$left = $this->getNode('left');
 		$right = $this->getNode('right');
 
-		if (!$left instanceof Twig_Node_Expression_Name || !$right instanceof Twig_Node_Expression_Name) {
+		if (!$left instanceof NameExpression || !$right instanceof NameExpression) {
 			throw new Twig_Error_Syntax("Left and Right of @ must be names.");
 		}
 
@@ -35,10 +44,12 @@ class Twig_Node_Expression_Binary_At extends Twig_Node_Expression_Binary {
 		;
 	}
 
-	public function operator(Twig_Compiler $compiler) {}
+	public function operator(Compiler $compiler) : Compiler {
+		return $compiler;
+	}
 }
 
-$twig = $twigMaker(function(Twig_Environment $twig) {
+$twig = $twigMaker(function(Environment $twig) {
 	$twig->addExtension(new Project_Twig_Extension());
 });
 $template = $twig->load("operator-at.twig");

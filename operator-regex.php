@@ -1,22 +1,32 @@
 <?php
 
+use Twig\Compiler;
+use Twig\Environment;
+use Twig\ExpressionParser;
+use Twig\Extension\AbstractExtension;
+use Twig\Node\Expression\Binary\AbstractBinary;
+
 list($twigMaker, $debugTemplate) = require 'inc.bootstrap.php';
 
 header('Content-type: text/plain; charset=utf-8');
 
-class Project_Twig_Extension extends Twig_Extension {
-	public function getOperators() {
+class Project_Twig_Extension extends AbstractExtension {
+	public function getOperators() : array {
 		return array(
 			array(),
 			array(
-				're' => array('precedence' => 20, 'class' => 'Twig_Node_Expression_Binary_Regex', 'associativity' => Twig_ExpressionParser::OPERATOR_LEFT),
+				're' => array(
+					'precedence' => 20,
+					'class' => 'Twig_Node_Expression_Binary_Regex',
+					'associativity' => ExpressionParser::OPERATOR_LEFT,
+				),
 			),
 		);
 	}
 }
 
-class Twig_Node_Expression_Binary_Regex extends Twig_Node_Expression_Binary {
-	public function compile(Twig_Compiler $compiler) {
+class Twig_Node_Expression_Binary_Regex extends AbstractBinary {
+	public function compile(Compiler $compiler) : void {
 		$compiler
 			->raw('(preg_match(')
 			->subcompile($this->getNode('right'))
@@ -26,11 +36,11 @@ class Twig_Node_Expression_Binary_Regex extends Twig_Node_Expression_Binary {
 		;
 	}
 
-	public function operator(Twig_Compiler $compiler) {
+	public function operator(Compiler $compiler) : Compiler {
 	}
 }
 
-$twig = $twigMaker(function(Twig_Environment $twig) {
+$twig = $twigMaker(function(Environment $twig) {
 	$twig->addExtension(new Project_Twig_Extension());
 });
 $template = $twig->load("operator-regex.twig");

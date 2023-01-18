@@ -2,7 +2,8 @@
     "name": "rdx/twig",
     "type": "project",
     "require": {
-        "twig/twig": "^2.4"
+        "twig/twig": "^3.5",
+        "symfony/var-dumper": "^6.0"
     },
     "license": "MIT",
     "authors": [
@@ -10,6 +11,5 @@
             "name": "Rudie Dirkx",
             "email": "github@hotblocks.nl"
         }
-    ],
-    "minimum-stability": "dev"
+    ]
 }
